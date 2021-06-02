@@ -1,0 +1,66 @@
+<% layout('../layout/boilerplate') %>
+<style>
+    body{
+        background: rgb(3,50,20);
+    background: linear-gradient(90deg, rgb(50, 3, 50) 0%, rgba(0,0,0,1) 100%);
+    };
+
+    #delete1:hover{
+        background-color: black
+    }
+</style>
+
+<!-- <% for(let t of alltickets){ %>
+    <%= t %>
+    <form action="/ticket/<%= t._id %>/unbook/<%= currentUser._id %>" method="POST">
+        <button>CANCEL</button>
+    </form>
+<% } %> -->
+
+ <div class="container">
+    <h1 style="text-align: center;margin: auto;text-transform: uppercase;color: #E0E6FF;">My Tickets</h1>
+    <% if(alltickets.length == 0) { %>
+
+        <h3 style="text-align: center;margin: auto;text-transform: uppercase;color: #63f19e;margin-top: 20px;">You Have Not Booked A Ticket</h3>
+    
+    <% } %>
+    <div class="row">
+        <% for(let t of alltickets){ %>
+          <div class=" col-sm-12 col-md-6 col-lg-3">
+            <div class="card mt-3 mb-3 " style="border: none;">
+                <div style="color: white;padding:0px;border-radius: 20px;" class="card-body">
+
+                    <div class="card-img-top" style="color: #443266; height: 140px;background-color: #dbdbf0; border-radius: 0px;border-bottom: 1px solid black ;text-align: center;font-size: 100px;"><%=t.row%><%=t.seatnumber%></div>
+                    <div style="background-color: #443266;font-size: 20px;" class="card-body text-center pt-4">
+                        <h5 style="text-transform: uppercase;" class="card-title pb-2"><b><i><%= t.moviename %></i></b></h5>
+                        <p class="card-text ">Timing: <b><%= t.timing %></b></p>
+                        <p class="card-text pb-3">Date: <b><%= t.date %></b></p>
+                        <form action="/ticket/<%= t._id %>/unbook/<%= currentUser._id %>" method="POST">
+                            <button id="delete1" style="font-size: 20px;font-weight: bolder;border-radius: 20px;padding: 10px 30px;background-color: rgb(255, 52, 120);" class="btn  btn-large">CANCEL</button>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+
+              </div> 
+          </div>
+        <% } %>     
+    </div>
+</div>
+<!-- <% for(let t of alltickets){ %>
+    <div>
+        <%= t %>
+       
+    </div>
+<% } %>    
+
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>  -->

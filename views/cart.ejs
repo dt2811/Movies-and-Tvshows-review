@@ -1,0 +1,82 @@
+<% layout('../layout/boilerplate') %>
+<style>
+
+    body{
+        background: #0c0b06;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #231e35, #0c0b06);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #231e35, #0c0b06); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .row{
+        background-color: rgb(243, 237, 229);
+        border: 2px solid #95a7e2;
+        margin: 20px 0px;
+        padding: 20px;
+    }
+</style>
+<h1 style="text-align: center;margin: auto;text-transform: uppercase;color: #E0E6FF;">WatchList</h1>
+
+<% if(allmovies.length == 0 && allshows.length == 0) { %>
+
+    <h3 style="text-align: center;margin: auto;text-transform: uppercase;color: #63f19e;margin-top: 20px;">Your WatchList is Empty</h3>
+
+<% } %>  
+<div class="container">
+   
+        <% for(let movie of allmovies) { %>
+            <div class="row">
+                <div class="col-2">
+                    <img height="200px" width="100%" src="<%= movie.Poster %>" alt="">
+                </div>
+                <div style="padding-left: 50px;" class="col-8">
+                    <b style="font-size: 30px;text-transform: uppercase;"><%= movie.Title %></b>
+                    <p><b><i>Actors: </i></b> <%= movie.Actors %></p>
+                    <p><b><i>Director: </i></b> <%= movie.Director %></p>
+                    <p><b><i>IMDBRating: </i></b> <%= movie.imdbRating %></p>
+                    <p><b><i>Genre: </i></b> <%= movie.Genre %></p>
+                    <p><b><i>Year: </i></b> <%= movie.Year %></p>
+                </div>
+                <div class="col-2">
+                    <form action="/movie/<%= movie._id %>/removeFromCart/<%= currentUser._id %>" method="POST">
+                        <button style="margin-top: 80px;" class="btn btn-danger btn-lg">DELETE</button>
+                    </form>
+                </div>  
+           
+               
+           
+            </div>
+        <% } %>  
+    
+</div>
+
+<div class="container">
+   
+    <% for(let movie of allshows) { %>
+        <div class="row">
+            <div class="col-2">
+                <img  " height="200px" width="100%" src="<%= movie.Poster %>" alt="">
+            </div>
+            <div style="padding-left: 50px;" class="col-8">
+                <b style="font-size: 30px;text-transform: uppercase;"><%= movie.Title %></b>
+                <p><b><i>Actors: </i></b> <%= movie.Actors %></p>
+                <!-- <p><b><i>Director: </i></b> <%= movie.Plot %></p> -->
+                <p><b><i>IMDBRating: </i></b> <%= movie.imdbRating %></p>
+                <p><b><i>Genre: </i></b> <%= movie.Genre %></p>
+                <p><b><i>Year: </i></b> <%= movie.Year %></p>
+            </div>
+            <div class="col-2">
+                <form action="/show/<%= movie._id %>/removeFromCart/<%= currentUser._id %>" method="POST">
+                    <button style="margin-top: 80px;" class="btn btn-danger btn-lg">DELETE</button>
+                </form>
+            </div>  
+       
+           
+       
+        </div>
+    <% } %>  
+
+</div>
+  
+
+  

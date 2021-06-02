@@ -1,0 +1,103 @@
+<% layout('../layout/boilerplate') %>
+
+
+<body style="background-color:black;">
+    <aside
+        style="float: right; height: 100%; margin-top: 3.5%; width: 28%;background-color:black; border-color: white;">
+        <h3 style="margin-left: 2%; margin-top: 2%; color: white;">Reviews
+            <hr style="color: white; margin-top: 0; height: 2px;">
+            </hr>
+        </h3>
+
+        <div class="card" style="margin:10px; padding: 0px; background-color: rgb(37, 36, 36);">
+            <div class="card-body">
+                <h5 class="card-title" style="color: white;"><%= currentUser.username %></h5>
+                <form action="/show/<%= s._id %>/comment/<%= currentUser._id  %>" method="post">
+                    <input placeholder="Enter review" style="background-color: black;width: 100%;border: none;border: 2px solid rgb(218, 196, 196);color: white; margin-bottom:2%;" type="text" name="text">
+                    <button class="btn btn-primary" style="margin-top: 2%;text-transform: uppercase;background-color: black;border: 2px solid rgb(50, 50, 241); ">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+        <% if(s.comments) { %>
+            <% for(let c of s.comments){ %>
+                <div class="card" style="margin:10px; padding: 0px;background-color: rgb(37, 36, 36);">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: white;"><b><%= c.user.username %></b>  <i style="float: right;font-size: 15px;"><%= c.date %></i></h5>
+                        <hr style="color: black;height:4px;" >
+                        <h6 class="card-text" style="color: white;margin-bottom:4%; "><%= c.text %></h6>
+                        <% if(JSON.stringify(currentUser) === JSON.stringify(c.user)){ %>
+<!-- 
+                            <a href="/show/<%= s._id %>/commentedit/<%= c._id %>" class="btn btn-success" style="border: 2px solid green;margin-right:5%;float: left;background-color: black;text-transform: uppercase;">Edit</a>
+                                <form action="/show/<%= s._id %>/commentdelete/<%= c._id %>" method="post">
+                                    <button class="btn btn-danger" style="background-color: black;text-transform: uppercase;border: 2px solid red;">Delete</button>
+                                   
+                                </form> -->
+
+                                
+                            <div class="editing">
+                                <form action="/show/<%= s._id %>/commentedit/<%= c._id %>" method="post">
+                                    <div class="commentedit">
+                                        <input class="editinput" value="<%= c.text %>" style="display: none;background-color: black;width: 100%;border: none;border: 2px solid rgb(218, 196, 196);color: white; margin-bottom:2%;" type="text" name="text">
+                                    <button  class=" btn btn-danger eb" style="display: none;background-color: black;text-transform: uppercase;border: 2px solid rgb(165, 10, 131);">Confirm</button>
+                                    </div>
+                                </form>
+                                <br>
+                                <button  href="#" class="btn btn-success editbtn" style="border: 2px solid green;margin-right:5%;float: left;background-color: black;text-transform: uppercase;">Edit</button>
+                                <form action="/show/<%= s._id %>/commentdelete/<%= c._id %>" method="post">
+                                    <button  class="btn btn-danger" style="background-color: black;text-transform: uppercase;border: 2px solid red;">Delete</button>
+                                </form>
+                            </div>
+                               
+                        <% } %>        
+                    </div>
+                </div>
+            <% } %>
+        <% }%>
+        
+    </aside>
+
+    <main style="background-color: black;" class="mb-5">
+        <h2 style="margin-left: 2%; color: white; margin-top: 1%;"><%= s.Title %> (<%= s.Year %>) </h2>
+        <iframe height="500px" width="70%" style="margin-left: 2%;" src="<%= s.youtube %>"
+            frameborder="1" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+        <div class="card" style="width: 70%; margin-left: 2%; margin-top: 1%; background-color: rgb(37, 36, 36);">
+            <div class="card-body" style="background-color: rgb(37, 36, 36);">
+                <h3 class="card-title" style="margin-bottom: 3%; color: white;"><%= s.Title %> (<%= s.Year %>) 
+                    &nbsp;<small><%= s.Runtime %></small></h3>
+                <h5 class="card-title" style="margin-bottom: 1%; color: white;"><span style="font-weight: bold; font-size: 25px;">Imdb :</span> <%= s.imdbRating %>/10 &nbsp; &nbsp;<span style="font-weight: bold; font-size: 25px;">Genre: </span><%= s.Genre %></h5>
+                
+                <h5 class="card-title" style="margin-bottom: 1%; color: white;"> <span style="font-weight: bold; font-size: 25px;">Cast :</span> <%= s.Actors %></h5>
+                <h5 class="card-title" style="line-height: 1.7; word-spacing: 10px; color: white;"> <span style="font-weight: bold; font-size: 25px; ">Plot:</span> <%= s.Plot %></h5>
+                <center>
+                    <form action="/show/<%= s._id %>/addToCart/<%= currentUser._id  %>" method="POST">
+                        <button style="width: 70%; margin-top: 1%;" class="btn btn-primary">WishList</button>
+                    </form>
+                </center>
+            </div>
+        </div>
+    </main> 
+
+    <script>
+
+        let all = document.querySelectorAll(".editing")
+        
+        for(let b of all)
+        {  
+           let inp = b.querySelector(".editinput")
+           let btn = b.querySelector(".editbtn")
+           let submit = b.querySelector(".eb");
+           btn.addEventListener('click',() => {
+               inp.style.display = "block"
+               submit.style.display = "block"
+           })
+
+        }
+        
+        
+    </script>
+

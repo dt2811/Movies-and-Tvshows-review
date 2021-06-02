@@ -1,0 +1,52 @@
+
+
+
+<!-- <%= tickets %> -->
+<% layout('../layout/boilerplate') %>
+
+<style>
+    body{
+
+        background: #000000;  
+background: -webkit-linear-gradient(to right, #04044d, #000000); 
+background: linear-gradient(to right, #04044d, #000000);
+
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div style="height: 50px;background-color: rgb(116, 17, 50);margin-bottom: 20px;color: white;text-align: center ;font-size: 30px;" >Screen</div>
+        </div>
+    </div>
+    <div class="row">
+        <% for(let t of tickets){ let c=0 ; %>
+   
+            <div class="col-1 mb-2">
+        
+                    <% if(t.status === "unsold"){ %>
+                
+                        <form class="form1" action="/ticket/<%= t._id %>/book/<%= currentUser._id %>" method="POST">
+                            <button style="border:none;border: 3px solid rgb(9, 117, 5);padding: 0%;"><div style="width: 70px;height: 60px;background-color: #77df7c;color: rgb(3, 0, 0);text-align: center;font-size: 25px;font-weight: 600;padding-top: 5px;"><%= t.row %><%= t.seatnumber %></div></button>
+                        </form>
+                
+                    <% } else { %>    
+                
+                        <form class="form1" action="/ticket/<%= t._id %>/book/<%= currentUser._id %>" method="POST">
+                            <button style="border: none;border: 3px solid rgb(17, 14, 14);padding: 0%;"><div style="width: 70px;height: 60px;background-color: #93aeb3 ;color: rgb(3, 0, 0);text-align: center;font-size: 25px;font-weight: 600;padding-top: 5px;"><%= t.row %><%= t.seatnumber %></div></button>
+                        </form>
+                
+                
+                    <% } %>  
+            </div>  
+            <% if(((t.seatnumber)==2) || ((t.seatnumber)==8)) { %>
+                <div class="col-1"></div>
+            <% } %>
+        
+        
+        <% } %>   
+    </div>
+</div>
+
+ 

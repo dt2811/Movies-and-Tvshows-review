@@ -1,0 +1,11 @@
+<%= comment %>
+
+<% layout('../layout/boilerplate') %>
+
+
+
+
+<form action="/movie/<%= id %>/commentedit/<%= comment._id %>" method="post">
+    <input type="text" name="text" value="<%= comment.text %>">
+    <button>Edit</button>
+</form>
